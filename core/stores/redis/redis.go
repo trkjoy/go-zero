@@ -49,6 +49,7 @@ type (
 		Pass string
 		tls  bool
 		brk  breaker.Breaker
+		Db   int
 	}
 
 	// RedisNode interface represents a redis node.
@@ -2409,7 +2410,11 @@ func WithTLS() Option {
 		r.tls = true
 	}
 }
-
+func WithDb(db int) Option {
+	return func(r *Redis) {
+		r.Db = db
+	}
+}
 func acceptable(err error) bool {
 	return err == nil || err == red.Nil || err == context.Canceled
 }
